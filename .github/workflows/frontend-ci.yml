@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  unit:
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -16,3 +16,6 @@ jobs:
           node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npm run test:unit
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
