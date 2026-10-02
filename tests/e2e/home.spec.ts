@@ -40,3 +40,11 @@ test("desktop navigation exposes four content destinations and GitHub", async ({
   await expect(nav.getByRole("link", { name: "Contact", exact: true })).toHaveAttribute("href", "#contact");
   await expect(nav.getByRole("link", { name: "GitHub", exact: true })).toHaveAttribute("href", "https://github.com/Parkts310120");
 });
+
+
+test("contact panel does not publish a fake contact destination", async ({ page }) => {
+  await page.goto("/");
+  const contact = page.locator("#contact");
+  await expect(contact.getByRole("link", { name: /^Contact$/i })).toHaveCount(0);
+  await expect(contact.getByRole("link", { name: /GitHub/i })).toHaveCount(1);
+});
