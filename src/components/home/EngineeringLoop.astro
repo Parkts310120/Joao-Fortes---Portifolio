@@ -1,0 +1,43 @@
+---
+const steps = [
+  "Frame problem",
+  "Model system",
+  "Build useful slice",
+  "Validate",
+  "Test failure paths",
+  "Observe",
+  "Document trade-offs",
+  "Iterate",
+];
+const principles = [
+  "Evidence over claims",
+  "Tests protect behavior",
+  "Reliable state + data integrity",
+  "Failure paths are product behavior",
+  "Infrastructure only when justified",
+  "AI-assisted, human-owned decisions",
+];
+---
+<div class="engineering-loop" aria-label="Engineering loop">
+  {steps.map((step, index) => (
+    <div class="loop-step">
+      <span>{String(index + 1).padStart(2, "0")}</span>
+      <strong>{step}</strong>
+      {index < steps.length - 1 && <span class="loop-arrow" aria-hidden="true">→</span>}
+    </div>
+  ))}
+</div>
+
+<div class="principle-grid">
+  {principles.map((principle, index) => (
+    <article class="principle-card">
+      <span>{String(index + 1).padStart(2, "0")}</span>
+      <p>{principle}</p>
+    </article>
+  ))}
+</div>
+
+<div class="ai-disclosure">
+  <span>AI-ASSISTED / HUMAN-OWNED</span>
+  <p>AI supports research, decomposition, prototyping, debugging, test design and review. Correctness and final technical decisions stay human-owned.</p>
+</div>
