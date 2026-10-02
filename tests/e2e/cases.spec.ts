@@ -22,7 +22,7 @@ for (const slug of routes) {
 test("transactional case exposes sanitized boundary and architecture summary", async ({ page }) => {
   await page.goto("/work/transactional-operations-platform");
   await expect(page.getByText("SANITIZED ARCHITECTURE CASE", { exact: true })).toBeVisible();
-  await expect(page.getByText(/original source remains private/i)).toBeVisible();
+  await expect(page.locator(".evidence-disclosure")).toContainText(/original source remains private/i);
   await expect(page.locator("[data-architecture-map]")).toBeVisible();
   await expect(page.locator("[data-architecture-map] [data-node]")).toHaveCount(8);
 });
@@ -31,7 +31,7 @@ test("bot case exposes exact reviewed PR evidence without implying merge", async
   await page.goto("/work/endurance-coordination-bot");
   await expect(page.getByText(/VERIFIED PUBLIC PR/i).first()).toBeVisible();
   await expect(page.getByText(/f3317da84d442b301660dee9ab617aa4fa9f5cc1/)).toBeVisible();
-  await expect(page.getByText(/10 tests/i)).toBeVisible();
+  await expect(page.locator(".evidence-panel").getByText(/10 tests/i)).toBeVisible();
   await expect(page.getByText(/merge pending|open.*unmerged/i).first()).toBeVisible();
   await expect(page.getByText(/not.*PIN_READY/i).first()).toBeVisible();
 });
