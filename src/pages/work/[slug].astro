@@ -1,0 +1,92 @@
+---
+import CaseLayout from "../../layouts/CaseLayout.astro";
+import CaseMeta from "../../components/case/CaseMeta.astro";
+import ArchitecturePanel from "../../components/case/ArchitecturePanel.astro";
+import DecisionCard from "../../components/case/DecisionCard.astro";
+import FailureModes from "../../components/case/FailureModes.astro";
+import EvidencePanel from "../../components/case/EvidencePanel.astro";
+import LimitationsBlock from "../../components/case/LimitationsBlock.astro";
+import { caseStudies, type CaseStudy } from "../../lib/cases";
+
+export function getStaticPaths() {
+  return caseStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { study },
+  }));
+}
+
+interface Props { study: CaseStudy }
+const { study } = Astro.props;
+---
+<CaseLayout title={study.title} description={study.summary}>
+  <article class="case-shell">
+    <section class="case-hero">
+      <div class="case-hero-main">
+        <span class="case-type">{study.typeLabel}</span>
+        <h1>{study.title}</h1>
+        <p class="case-summary">{study.summary}</p>
+
+        <div class="case-contribution">
+          <span class="meta-label">Contribution boundary</span>
+          <p>{study.contribution}</p>
+        </div>
+
+        {study.externalProof && (
+          <a
+            class="action-link action-secondary case-proof-link"
+            href={study.externalProof.href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {study.externalProof.label} ↗
+          </a>
+        )}
+      </div>
+
+      <CaseMeta meta={study.meta} />
+    </section>
+
+    <section class="case-section" aria-labelledby="context-title">
+      <p class="section-kicker">01 / CONTEXT / PROBLEM</p>
+      <h2 id="context-title">{study.contextTitle}</h2>
+      <p class="case-narrative">{study.context}</p>
+    </section>
+
+    <section class="case-section" aria-labelledby="constraints-title">
+      <p class="section-kicker">02 / CONSTRAINTS</p>
+      <h2 id="constraints-title" class="sr-only">Constraints</h2>
+      <ul class="constraint-list">
+        {study.constraints.map((constraint) => <li>{constraint}</li>)}
+      </ul>
+    </section>
+
+    <section id="architecture" class="case-section" aria-labelledby="architecture-title">
+      <p class="section-kicker">03 / SYSTEM / ARCHITECTURE</p>
+      <h2 id="architecture-title" class="sr-only">System architecture</h2>
+      <ArchitecturePanel nodes={study.architecture} summary={study.architectureSummary} />
+    </section>
+
+    <section class="case-section" aria-labelledby="decisions-title">
+      <p class="section-kicker">04 / KEY DECISIONS</p>
+      <h2 id="decisions-title" class="sr-only">Key decisions</h2>
+      <div class="decision-list">
+        {study.decisions.map((decision, index) => (
+          <DecisionCard decision={decision} index={index} />
+        ))}
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="failures-title">
+      <p class="section-kicker">05 / FAILURE MODES</p>
+      <h2 id="failures-title" class="sr-only">Failure modes</h2>
+      <FailureModes rows={study.failureModes} />
+    </section>
+
+    <section class="case-section">
+      <p class="section-kicker">06 / EVIDENCE + OUTCOME</p>
+      <EvidencePanel evidence={study.evidence} outcome={study.outcome} disclosure={study.disclosure} />
+    </section>
+
+    <LimitationsBlock items={study.limitations} />
+  </article>
+</CaseLayout>
