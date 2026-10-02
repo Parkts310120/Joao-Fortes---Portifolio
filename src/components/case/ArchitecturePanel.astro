@@ -1,0 +1,21 @@
+---
+interface Props {
+  nodes: readonly string[];
+  summary: string;
+}
+const { nodes, summary } = Astro.props;
+---
+<figure class="architecture-panel" data-architecture-map>
+  <figcaption>
+    <span class="panel-label">SYSTEM MAP / EVIDENCE-SAFE</span>
+    <p>{summary}</p>
+  </figcaption>
+  <div class="architecture-grid">
+    {nodes.map((node, index) => (
+      <div class="architecture-node" data-node>
+        <span>{node}</span>
+        {index < nodes.length - 1 && <span class="architecture-arrow" aria-hidden="true">→</span>}
+      </div>
+    ))}
+  </div>
+</figure>
