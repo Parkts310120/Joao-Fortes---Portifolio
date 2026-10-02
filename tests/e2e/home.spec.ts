@@ -45,6 +45,6 @@ test("desktop navigation exposes four content destinations and GitHub", async ({
 test("contact panel does not publish a fake contact destination", async ({ page }) => {
   await page.goto("/");
   const contact = page.locator("#contact");
-  await expect(contact.getByRole("link", { name: /^Contact$/i })).toHaveCount(0);
+  await expect(contact.getByRole("link", { name: /^Contact\b/i })).toHaveCount(0);
   await expect(contact.getByRole("link", { name: /GitHub/i })).toHaveCount(1);
 });
