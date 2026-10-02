@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SkipLink from "../components/site/SkipLink.astro";
+import SiteHeader from "../components/site/SiteHeader.astro";
+import SiteFooter from "../components/site/SiteFooter.astro";
+import ActionLink from "../components/primitives/ActionLink.astro";
+import SectionHeader from "../components/primitives/SectionHeader.astro";
+import EngineeringSignals from "../components/home/EngineeringSignals.astro";
+import ProjectCard from "../components/home/ProjectCard.astro";
+import EngineeringLoop from "../components/home/EngineeringLoop.astro";
+import AdditionalWorkList from "../components/home/AdditionalWorkList.astro";
+import ExperienceTimeline from "../components/home/ExperienceTimeline.astro";
+import ContactPanel from "../components/home/ContactPanel.astro";
+import { primaryWork, secondaryWork } from "../lib/work";
+---
+<BaseLayout>
+  <SkipLink />
+  <SiteHeader />
+
+  <main id="main">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">SOFTWARE ENGINEERING / PRACTICAL SYSTEMS</p>
+        <h1 id="hero-title">João Paulo Fortes</h1>
+        <p class="hero-positioning">Software developer focused on backend systems, automation, applied AI and data.</p>
+        <p class="hero-context">Computer Science student / early-career engineer building practical systems around operational workflows, reliable state and reproducible engineering.</p>
+        <div class="hero-actions">
+          <ActionLink href="#work" label="View selected work" kind="primary" />
+          <ActionLink href="https://github.com/Parkts310120" label="GitHub" kind="secondary" external />
+        </div>
+      </div>
+      <EngineeringSignals />
+    </section>
+
+    <section id="work" class="section-shell content-section" aria-labelledby="work-title">
+      <SectionHeader
+        index="01"
+        label="SELECTED WORK"
+        id="work-title"
+        title="Proof before polish."
+        description="Three primary systems. Problem, contribution boundary and proof cue are visible at scan speed."
+      />
+      <div class="primary-work-grid">
+        {primaryWork.map((item, index) => (
+          <ProjectCard item={item} featured={index === 0} />
+        ))}
+      </div>
+    </section>
+
+    <section id="engineering" class="section-shell content-section" aria-labelledby="engineering-title">
+      <SectionHeader
+        index="02"
+        label="ENGINEERING"
+        id="engineering-title"
+        title="How I work"
+        description="A small, inspectable loop: decisions are explicit and failure behavior counts as product behavior."
+      />
+      <EngineeringLoop />
+    </section>
+
+    <section class="section-shell content-section" aria-labelledby="additional-title">
+      <SectionHeader
+        index="03"
+        label="ADDITIONAL WORK"
+        id="additional-title"
+        title="More proof, lower visual weight."
+      />
+      <AdditionalWorkList items={secondaryWork} />
+    </section>
+
+    <section id="experience" class="section-shell content-section" aria-labelledby="experience-title">
+      <SectionHeader
+        index="04"
+        label="EXPERIENCE + EDUCATION"
+        id="experience-title"
+        title="Context without inflated claims."
+      />
+      <ExperienceTimeline />
+    </section>
+
+    <section id="about" class="section-shell content-section about-section" aria-labelledby="about-title">
+      <p class="section-kicker">05 / ABOUT</p>
+      <h2 id="about-title">Systems where correctness shows up in behavior.</h2>
+      <p>I’m interested in software where state transitions, failure modes, data integrity and automation matter as much as the happy path. I use AI heavily as part of the toolchain, but not as a substitute for understanding, verification or responsibility.</p>
+    </section>
+
+    <section id="contact" class="section-shell contact-section" aria-label="Contact">
+      <ContactPanel />
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
