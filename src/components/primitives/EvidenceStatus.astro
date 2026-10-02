@@ -1,0 +1,13 @@
+---
+import type { EvidenceState } from "../../lib/work";
+
+interface Props {
+  state: EvidenceState;
+  label: string;
+}
+
+const { state, label } = Astro.props;
+---
+<span class:list={["evidence-status", `status-${state.toLowerCase().replaceAll("_", "-")}`]}>
+  {label}
+</span>
