@@ -1,0 +1,22 @@
+---
+import type { CaseStudy } from "../../lib/cases";
+interface Props { meta: CaseStudy["meta"] }
+const { meta } = Astro.props;
+const rows = [
+  ["Type", meta.type],
+  ["Focus", meta.focus],
+  ["Evidence", meta.evidence],
+  ["Source", meta.source],
+];
+---
+<aside class="case-meta" aria-label="Case metadata">
+  <p class="panel-label">CASE META</p>
+  <dl>
+    {rows.map(([label, value]) => (
+      <div>
+        <dt>{label}</dt>
+        <dd>{value}</dd>
+      </div>
+    ))}
+  </dl>
+</aside>

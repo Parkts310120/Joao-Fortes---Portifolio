@@ -1,0 +1,31 @@
+---
+const entries = [
+  {
+    marker: "NOW",
+    title: "Computer Science",
+    body: "Late-stage degree work with emphasis on software systems, data and applied AI.",
+  },
+  {
+    marker: "WORK",
+    title: "Operational systems context",
+    body: "Experience close to real workflows, constraints and process reliability.",
+  },
+  {
+    marker: "BUILD",
+    title: "Independent engineering portfolio",
+    body: "Public code, sanitized architecture cases and reproducible labs.",
+  },
+];
+---
+<ol class="experience-timeline">
+  {entries.map((entry) => (
+    <li>
+      <span class="timeline-dot" aria-hidden="true"></span>
+      <span class="timeline-marker">{entry.marker}</span>
+      <div>
+        <strong>{entry.title}</strong>
+        <p>{entry.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>

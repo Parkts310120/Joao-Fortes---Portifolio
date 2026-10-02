@@ -1,0 +1,19 @@
+---
+import type { CaseFailure } from "../../lib/cases";
+interface Props { rows: readonly CaseFailure[] }
+const { rows } = Astro.props;
+---
+<div class="failure-table">
+  <div class="failure-head" aria-hidden="true">
+    <span>Failure</span>
+    <span>Expected behavior</span>
+    <span>Evidence</span>
+  </div>
+  {rows.map((row) => (
+    <article class="failure-row">
+      <h3>{row.condition}</h3>
+      <p>{row.behavior}</p>
+      <span>{row.evidence}</span>
+    </article>
+  ))}
+</div>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  evidence: readonly string[];
+  outcome: string;
+  disclosure?: string;
+}
+const { evidence, outcome, disclosure } = Astro.props;
+---
+<section class="evidence-panel" aria-labelledby="evidence-outcome-title">
+  <p class="panel-label">EVIDENCE / OUTCOME</p>
+  <h2 id="evidence-outcome-title">Evidence &amp; outcome</h2>
+  {disclosure && <p class="evidence-disclosure">{disclosure}</p>}
+  <ul>
+    {evidence.map((item) => <li>{item}</li>)}
+  </ul>
+  <p class="outcome">{outcome}</p>
+</section>
