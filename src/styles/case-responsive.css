@@ -1,0 +1,47 @@
+@media (max-width:1023px){
+  .case-topbar>div,.case-shell{width:min(calc(100% - 48px),var(--content-max))}
+  .case-hero{grid-template-columns:1fr;gap:32px;padding-bottom:72px}
+  .case-meta{position:static;max-width:680px}
+  .case-section,.limitations-block{max-width:none}
+  .failure-head,.failure-row{grid-template-columns:minmax(130px,.8fr) minmax(240px,1.5fr) minmax(100px,.7fr);gap:16px}
+}
+@media (max-width:699px){
+  .case-topbar>div,.case-shell{width:calc(100% - 32px)}
+  .case-topbar>div{min-height:56px}
+  .case-shell{padding:28px 0 64px}
+  .case-hero{gap:26px;padding-bottom:54px}
+  .case-type{padding:5px 10px;font-size:8px}
+  .case-hero h1{margin-top:20px;max-width:330px;font-size:36px;line-height:1.12}
+  .case-summary{font-size:12px;line-height:1.5}
+  .case-contribution{margin-top:28px}
+  .case-contribution p{font-size:10px}
+  .case-meta{padding:16px}
+  .case-meta dl>div{grid-template-columns:74px 1fr;min-height:48px}
+  .case-meta dt{font-size:8px}
+  .case-meta dd{font-size:10px}
+  .case-section,.limitations-block{padding-bottom:52px}
+  .case-section h2,.limitations-block h2{font-size:24px}
+  .case-narrative{font-size:11px}
+  .constraint-list{gap:8px}
+  .constraint-list li{padding:6px 10px;font-size:8px}
+  .architecture-panel{padding:14px}
+  .architecture-grid{grid-template-columns:1fr;gap:12px}
+  .architecture-node{min-height:48px;padding:11px 12px;font-size:10px}
+  .architecture-arrow{display:block!important;right:auto;left:50%;bottom:-12px;top:auto;transform:translateX(-50%) rotate(90deg)}
+  .architecture-node:last-child .architecture-arrow{display:none!important}
+  .architecture-node:nth-child(4)::after{display:none}
+  .decision-list{gap:10px}
+  .decision-card{padding:16px}
+  .decision-card h3{font-size:13px}
+  .decision-card p{font-size:10px}
+  .failure-head{display:none}
+  .failure-row{margin:0;padding:16px;display:grid;grid-template-columns:1fr;gap:8px}
+  .failure-row h3{font-size:11px}
+  .failure-row p{font-size:9px}
+  .evidence-panel{padding:16px}
+  .evidence-panel h2{font-size:21px}
+  .evidence-panel ul{font-size:9px;padding-left:16px}
+  .evidence-disclosure,.evidence-panel .outcome{font-size:10px}
+  .limitations-block li{grid-template-columns:24px 1fr;gap:8px;padding:10px 0}
+  .limitations-block li p{font-size:10px}
+}
