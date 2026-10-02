@@ -1,0 +1,61 @@
+---
+const githubUrl = "https://github.com/Parkts310120";
+---
+<header class="site-header">
+  <div class="header-inner">
+    <a class="wordmark" href="/" aria-label="João Fortes home">João Fortes</a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="utility-link" href={githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+
+    <button
+      class="menu-trigger"
+      type="button"
+      aria-label="Menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      Menu
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="mobile-nav" aria-label="Mobile" hidden>
+    <a href="#work">Work</a>
+    <a href="#engineering">Engineering</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href={githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
+  </nav>
+</header>
+
+<script>
+  const trigger = document.querySelector<HTMLButtonElement>(".menu-trigger");
+  const menu = document.querySelector<HTMLElement>("#mobile-menu");
+
+  function setOpen(open: boolean) {
+    if (!trigger || !menu) return;
+    trigger.setAttribute("aria-expanded", String(open));
+    menu.hidden = !open;
+    document.documentElement.classList.toggle("menu-open", open);
+  }
+
+  trigger?.addEventListener("click", () => {
+    setOpen(trigger.getAttribute("aria-expanded") !== "true");
+  });
+
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && trigger?.getAttribute("aria-expanded") === "true") {
+      setOpen(false);
+      trigger.focus();
+    }
+  });
+</script>
