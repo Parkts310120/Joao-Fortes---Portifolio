@@ -1,0 +1,28 @@
+---
+import EvidenceStatus from "../primitives/EvidenceStatus.astro";
+import ActionLink from "../primitives/ActionLink.astro";
+import type { WorkItem } from "../../lib/work";
+
+interface Props { items: readonly WorkItem[] }
+const { items } = Astro.props;
+---
+<div class="additional-list">
+  {items.map((item) => (
+    <article class="additional-row" data-work-slug={item.slug}>
+      <div class="additional-main">
+        <h3>{item.title}</h3>
+        <p>{item.summary}</p>
+      </div>
+      <EvidenceStatus state={item.state} label={item.publicLabel} />
+      <div class="additional-action">
+        {item.primaryCta && (
+          <ActionLink
+            href={item.primaryCta.href}
+            label={item.primaryCta.label}
+            external={item.primaryCta.kind === "external"}
+          />
+        )}
+      </div>
+    </article>
+  ))}
+</div>
