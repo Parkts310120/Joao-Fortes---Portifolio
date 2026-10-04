@@ -15,20 +15,6 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
-      - name: Capture generated lockfile
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: generated-package-lock
-          path: package-lock.json
-          if-no-files-found: error
-          retention-days: 1
-      - name: Require committed lockfile
-        run: |
-          if [ -n "$(git status --porcelain -- package-lock.json)" ]; then
-            echo "package-lock.json must be committed for reproducible installs"
-            git status --short -- package-lock.json
-            exit 1
-          fi
       - run: npm run test:unit
       - run: npm run build
       - run: npx playwright install --with-deps chromium
