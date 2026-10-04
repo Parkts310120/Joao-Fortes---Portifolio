@@ -1,0 +1,23 @@
+# Dependencies and generated Astro output
+node_modules/
+.astro/
+dist/
+
+# Playwright and local evidence
+playwright-report/
+test-results/
+blob-report/
+artifacts/
+playwright.local.config.*
+
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+.vercel/
+*.log
+.DS_Store
+Thumbs.db
+
+# Keep reproducible dependency resolution tracked
+!package-lock.json

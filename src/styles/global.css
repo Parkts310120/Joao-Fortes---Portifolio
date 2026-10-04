@@ -758,3 +758,19 @@ main { display: block; }
     transform: none !important;
   }
 }
+
+/* Approved mobile hit-area contract; desktop composition stays locked. */
+@media (max-width: 1023px) {
+  a[href], button, input:not([type="hidden"]), select, textarea, [role="button"],
+  .additional-action .action-link, .contact-actions .action-link {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .project-footer { flex-wrap: wrap; }
+
+  a[href] {
+    display: inline-flex;
+    align-items: center;
+  }
+}

@@ -17,6 +17,21 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm run test:unit
       - run: npm run build
+      - name: Bind static QA artifact to source commit
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p artifacts/qa-candidate
+          node --input-type=module -e 'import fs from "node:fs"; import {execFileSync} from "node:child_process"; const git=(...args)=>execFileSync("git",args,{encoding:"utf8"}).trim(); fs.writeFileSync("artifacts/qa-candidate/manifest.json",JSON.stringify({headSha:process.env.PR_HEAD_SHA || git("rev-parse","HEAD"),checkoutSha:git("rev-parse","HEAD"),treeSha:git("rev-parse","HEAD^{tree}"),runId:process.env.GITHUB_RUN_ID},null,2));'
+          cp -R dist artifacts/qa-candidate/dist
+          cp package-lock.json artifacts/qa-candidate/package-lock.json
+          find artifacts/qa-candidate/dist -type f -exec sha256sum {} \; > artifacts/qa-candidate/SHA256SUMS
+      - name: Upload static QA candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: portfolio-qa-candidate
+          path: artifacts/qa-candidate
+          retention-days: 7
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - name: Upload visual evidence
