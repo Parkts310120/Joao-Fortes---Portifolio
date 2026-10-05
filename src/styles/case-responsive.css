@@ -45,3 +45,12 @@
   .limitations-block li{grid-template-columns:24px 1fr;gap:8px;padding:10px 0}
   .limitations-block li p{font-size:10px}
 }
+
+@media (max-width:699px){
+  .case-summary,.case-contribution p,.case-narrative,.decision-card p,
+  .failure-row p,.evidence-panel ul,.evidence-disclosure,
+  .evidence-panel .outcome,.limitations-block li p{font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+  .case-type,.case-meta dt,.constraint-list li{font-size:11px}
+  .case-meta dd,.architecture-node{font-size:12px}
+  .decision-card h3,.failure-row h3{font-size:16px}
+}

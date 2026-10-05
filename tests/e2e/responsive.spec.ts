@@ -99,3 +99,17 @@ for (const width of [360, 390, 768]) {
     });
   }
 }
+
+for (const width of [320, 375, 390]) {
+  for (const route of mobileRoutes) {
+    test(`mobile content remains readable and fits: ${width} ${route}`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto(route);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+      const bodyCopy = page.locator(route === "/" ? ".project-problem, .contribution-block p, .additional-row p, .experience-timeline p" : ".case-narrative, .decision-card p, .failure-row p, .evidence-panel ul, .limitations-block li p");
+      for (const node of await bodyCopy.all()) {
+        expect(await node.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(14);
+      }
+    });
+  }
+}
