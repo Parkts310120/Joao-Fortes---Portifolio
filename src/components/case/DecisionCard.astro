@@ -1,0 +1,10 @@
+---
+import type { CaseDecision } from "../../lib/cases";
+interface Props { decision: CaseDecision; index: number }
+const { decision, index } = Astro.props;
+---
+<article class="decision-card">
+  <span class="card-index">DECISION/{String(index + 1).padStart(2, "0")}</span>
+  <h3>{decision.title}</h3>
+  <p>{decision.body}</p>
+</article>

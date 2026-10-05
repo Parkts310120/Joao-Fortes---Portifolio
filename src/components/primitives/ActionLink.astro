@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  kind?: "primary" | "secondary" | "text";
+  external?: boolean;
+}
+
+const { href, label, kind = "text", external = false } = Astro.props;
+---
+<a
+  class:list={["action-link", `action-${kind}`]}
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noreferrer" : undefined}
+>
+  {label}<span aria-hidden="true">{external ? " ↗" : " →"}</span>
+</a>

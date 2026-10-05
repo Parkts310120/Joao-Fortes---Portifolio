@@ -1,0 +1,46 @@
+---
+import EvidenceStatus from "../primitives/EvidenceStatus.astro";
+import ActionLink from "../primitives/ActionLink.astro";
+import type { WorkItem } from "../../lib/work";
+
+interface Props {
+  item: WorkItem;
+  featured?: boolean;
+}
+const { item, featured = false } = Astro.props;
+---
+<article
+  class:list={["project-card", featured && "project-card-featured"]}
+  data-primary-card={item.primaryRank ? "" : undefined}
+  data-work-slug={item.slug}
+>
+  <div class="project-meta-row">
+    <EvidenceStatus state={item.state} label={item.publicLabel} />
+    <span class="proof-cue">{item.proofCue}</span>
+  </div>
+
+  <h3>{item.title}</h3>
+  <p class="project-problem">{item.problem}</p>
+
+  <div class="contribution-block">
+    <span class="meta-label">Contribution</span>
+    <p>{item.contribution}</p>
+  </div>
+
+  <div class="project-footer">
+    <ul class="theme-list" aria-label="Engineering themes">
+      {item.themes.map((theme) => <li>{theme}</li>)}
+    </ul>
+
+    <div class="project-actions">
+      {item.primaryCta && (
+        <ActionLink
+          href={item.primaryCta.href}
+          label={item.primaryCta.label}
+          kind="text"
+          external={item.primaryCta.kind === "external"}
+        />
+      )}
+    </div>
+  </div>
+</article>
