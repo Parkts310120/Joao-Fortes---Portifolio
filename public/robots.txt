@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joao-fortes-portifolio.vercel.app/sitemap.xml

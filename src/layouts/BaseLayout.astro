@@ -10,6 +10,10 @@ const {
   title = "João Paulo Fortes — Software Developer",
   description = "Software developer focused on backend systems, automation, applied AI and data. Evidence-first portfolio with engineering decisions, tests, trade-offs and limitations.",
 } = Astro.props;
+
+const origin = (Astro.site ?? new URL("https://joao-fortes-portifolio.vercel.app")).origin;
+const canonicalPath = Astro.url.pathname === "/" ? "" : Astro.url.pathname.replace(/\/+$/, "");
+const canonicalUrl = `${origin}${canonicalPath}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -17,6 +21,14 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="theme-color" content="#0B0F14" />
     <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
