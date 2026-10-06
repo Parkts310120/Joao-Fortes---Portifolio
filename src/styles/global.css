@@ -361,7 +361,7 @@ main { display: block; }
 }
 
 .status-sanitized-case { color: var(--status-private); }
-.status-verified-public-pr { color: var(--status-verified); }
+.status-verified-public-main-tests-ci { color: var(--status-verified); }
 .status-public-proof-pending,
 .status-in-build { color: var(--status-warning); }
 .status-research { color: var(--accent-primary); background: var(--accent-soft); }

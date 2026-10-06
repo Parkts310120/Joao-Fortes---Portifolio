@@ -23,11 +23,13 @@ describe("case-study registry", () => {
     expect(item?.disclosure).toMatch(/original source remains private/i);
   });
 
-  it("binds the public bot proof to the exact reviewed SHA and merge-pending state", () => {
+  it("binds the public bot proof to the exact source/merge SHAs and bounded main evidence", () => {
     const item = getCaseStudy("endurance-coordination-bot");
     expect(item?.evidence.join(" ")).toContain("f3317da84d442b301660dee9ab617aa4fa9f5cc1");
     expect(item?.evidence.join(" ")).toMatch(/10 tests/i);
-    expect(item?.evidence.join(" ")).toMatch(/merge pending|open|unmerged/i);
+    expect(item?.evidence.join(" ")).toContain("629049d5122938bc29354588158193f81d316cee");
+    expect(item?.evidence.join(" ")).toMatch(/post-merge main CI/i);
+    expect(JSON.stringify(item)).not.toMatch(/merge pending|open \/ unmerged/i);
     expect(item?.limitations.join(" ")).toMatch(/not.*PIN_READY/i);
   });
 

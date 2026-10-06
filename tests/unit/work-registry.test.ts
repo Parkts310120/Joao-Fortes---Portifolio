@@ -54,12 +54,12 @@ describe("work registry", () => {
     expect(routableWork.map((item) => item.slug)).not.toContain("warehouse-flow-api");
   });
 
-  it("binds bot proof to the verified PR and never calls it PIN_READY", () => {
+  it("binds bot proof to the verified main and never calls it PIN_READY", () => {
     const bot = getWorkBySlug("endurance-coordination-bot");
-    expect(bot?.state).toBe("VERIFIED_PUBLIC_PR");
-    expect(bot?.publicLabel).toContain("MERGE PENDING");
+    expect(bot?.state).toBe("VERIFIED_PUBLIC_MAIN_TESTS_CI");
+    expect(bot?.publicLabel).toContain("TESTS + CI");
     expect(bot?.publicLabel).not.toContain("PIN_READY");
-    expect(bot?.primaryCta?.href).toBe("https://github.com/Parkts310120/bot_discord/pull/1");
+    expect(bot?.primaryCta?.href).toBe("https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
   });
 
   it("keeps public-proof-pending work free of external source/demo CTAs", () => {

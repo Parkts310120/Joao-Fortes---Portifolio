@@ -18,11 +18,11 @@ test("home exposes the approved evidence hierarchy", async ({ page }) => {
   ]);
 
   await expect(cards.nth(0).getByText("SANITIZED CASE", { exact: true })).toBeVisible();
-  await expect(cards.nth(1).getByText("VERIFIED PUBLIC PR — MERGE PENDING", { exact: true })).toBeVisible();
+  await expect(cards.nth(1).getByText("VERIFIED PUBLIC MAIN — TESTS + CI", { exact: true })).toBeVisible();
   await expect(cards.nth(2).getByText("PUBLIC PROOF PENDING", { exact: true })).toBeVisible();
 
-  const botPr = page.getByRole("link", { name: "Review the verified PR" });
-  await expect(botPr).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/pull/1");
+  const botPr = page.getByRole("link", { name: "Inspect code & tests" });
+  await expect(botPr).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
 
   const warehouse = page.locator('[data-work-slug="warehouse-flow-api"]');
   await expect(warehouse).toContainText("IN BUILD");
