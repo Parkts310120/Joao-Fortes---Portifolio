@@ -12,7 +12,7 @@ const { href, label, kind = "text", external = false } = Astro.props;
   class:list={["action-link", `action-${kind}`]}
   href={href}
   target={external ? "_blank" : undefined}
-  rel={external ? "noreferrer" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
 >
   {label}<span aria-hidden="true">{external ? " ↗" : " →"}</span>
 </a>

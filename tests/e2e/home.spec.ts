@@ -48,3 +48,22 @@ test("contact panel does not publish a fake contact destination", async ({ page 
   await expect(contact.getByRole("link", { name: /^Contact\b/i })).toHaveCount(0);
   await expect(contact.getByRole("link", { name: /GitHub/i })).toHaveCount(1);
 });
+
+
+test("home exposes professional contact and case detail destinations", async ({ page }) => {
+  await page.goto("/");
+  const linkedIn = page.locator("#contact").getByRole("link", { name: "Connect on LinkedIn" });
+  await expect(linkedIn).toHaveAttribute("href", "https://www.linkedin.com/in/joao-paulo-matos-pereira-fortes-62360a228/");
+  await expect(linkedIn).toHaveAttribute("rel", "noopener noreferrer");
+  await expect(linkedIn).toHaveAttribute("target", "_blank");
+  for (const [label, destination, section] of [
+    ["See architecture & decisions", "/work/transactional-operations-platform#architecture", "#architecture"],
+    ["See current limitations", "/work/endurance-coordination-bot#limitations", "#limitations"],
+  ] as const) {
+    await page.goto("/");
+    const link = page.getByRole("link", { name: label });
+    await expect(link).toHaveAttribute("href", destination);
+    await link.click();
+    await expect(page.locator(section)).toBeVisible();
+  }
+});

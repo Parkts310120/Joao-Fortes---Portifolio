@@ -41,6 +41,10 @@ const { item, featured = false } = Astro.props;
           external={item.primaryCta.kind === "external"}
         />
       )}
+      {item.secondaryCta && (
+        <ActionLink href={item.secondaryCta.href} label={item.secondaryCta.label}
+          kind="text" external={item.secondaryCta.kind === "external"} />
+      )}
     </div>
   </div>
 </article>

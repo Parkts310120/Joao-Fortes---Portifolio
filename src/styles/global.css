@@ -432,7 +432,7 @@ main { display: block; }
   text-transform: uppercase;
 }
 
-.project-actions { flex: 0 0 auto; }
+.project-actions { display: flex; flex-wrap: wrap; gap: 12px; flex: 0 1 auto; }
 
 .engineering-loop {
   padding: 28px;
@@ -773,4 +773,19 @@ main { display: block; }
     display: inline-flex;
     align-items: center;
   }
+}
+
+/* Readable supporting content on small screens. */
+@media (max-width: 699px) {
+  .hero-context, .section-description, .project-problem,
+  .contribution-block p, .principle-card p, .ai-disclosure p,
+  .additional-row p, .experience-timeline p,
+  .about-section > p:last-child { font-size: 14px; line-height: 1.6; }
+  .additional-row h3, .experience-timeline strong { font-size: 16px; }
+  .action-link, .project-actions .action-link,
+  .additional-action .action-link, .contact-actions .action-link { font-size: 12px; }
+  .section-kicker, .evidence-status, .theme-list li, .footer-inner { font-size: 11px; }
+  .project-actions { flex-direction: column; align-items: flex-start; }
+  .additional-row { grid-template-columns: minmax(0, 1fr); }
+  .additional-row .evidence-status, .additional-action { grid-column: 1; grid-row: auto; }
 }
