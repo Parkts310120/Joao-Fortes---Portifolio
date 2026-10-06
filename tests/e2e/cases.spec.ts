@@ -27,13 +27,15 @@ test("transactional case exposes sanitized boundary and architecture summary", a
   await expect(page.locator("[data-architecture-map] [data-node]")).toHaveCount(8);
 });
 
-test("bot case exposes exact reviewed PR evidence without implying merge", async ({ page }) => {
+test("bot case exposes merged main evidence without implying product readiness", async ({ page }) => {
   await page.goto("/work/endurance-coordination-bot");
-  await expect(page.getByText(/VERIFIED PUBLIC PR/i).first()).toBeVisible();
+  await expect(page.getByText(/VERIFIED PUBLIC MAIN/i).first()).toBeVisible();
   await expect(page.getByText(/f3317da84d442b301660dee9ab617aa4fa9f5cc1/)).toBeVisible();
   await expect(page.locator(".evidence-panel").getByText(/10 tests/i)).toBeVisible();
-  await expect(page.getByText(/merge pending|open.*unmerged/i).first()).toBeVisible();
+  await expect(page.locator(".evidence-panel")).toContainText("629049d5122938bc29354588158193f81d316cee");
+  await expect(page.locator("main")).not.toContainText(/merge pending|open.*unmerged/i);
   await expect(page.getByText(/not.*PIN_READY/i).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Inspect code & tests" })).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
 });
 
 test("Warehouse Flow API has no generated deep route", async ({ page }) => {

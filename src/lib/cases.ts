@@ -117,15 +117,15 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "endurance-coordination-bot",
-    typeLabel: "VERIFIED PUBLIC PR — MERGE PENDING",
+    typeLabel: "VERIFIED PUBLIC MAIN — TESTS + CI",
     title: "Endurance Coordination Bot",
     summary: "Public Java/JDA coordination logic for race scheduling, time zones and driver availability.",
-    contribution: "Authentic public project with preserved history. Current portfolio proof is a bounded recovery PR around tests, CI, truthful documentation and security hardening.",
+    contribution: "Authentic public project with preserved history. The reviewed recovery slice is merged to main and provides bounded tests, CI, truthful documentation and security hardening evidence.",
     meta: {
       type: "Public engineering proof",
       focus: "Java + time zones",
-      evidence: "Verified PR",
-      source: "Public PR / merge pending",
+      evidence: "Verified main / tests + CI",
+      source: "Public main / recovery merged",
     },
     contextTitle: "Time-zone coordination needs domain rules, not string arithmetic.",
     context: "Availability windows can cross dates and every participant may report local time differently. The current proof concentrates on deterministic domain/service behavior and build verification rather than claiming full Discord integration coverage.",
@@ -146,7 +146,7 @@ export const caseStudies: readonly CaseStudy[] = [
       "Time-zone rules",
       "Response formatting",
     ],
-    architectureSummary: "The public project separates transport-facing Discord/JDA behavior from scheduling and availability rules. The current recovery PR strengthens the testable domain/service path; adapter coverage remains a known limitation.",
+    architectureSummary: "The public project separates transport-facing Discord/JDA behavior from scheduling and availability rules. The merged recovery slice strengthens the testable domain/service path; adapter coverage remains a known limitation.",
     decisions: [
       {
         title: "Exact-SHA evidence",
@@ -169,24 +169,24 @@ export const caseStudies: readonly CaseStudy[] = [
       },
       {
         condition: "Recovery regression",
-        behavior: "The reviewed branch is protected by automated tests and CI.",
+        behavior: "The reviewed recovery work on main is verified by automated tests and CI.",
         evidence: "10 tests + green CI",
       },
       {
         condition: "Evidence drift",
-        behavior: "The portfolio records the reviewed SHA and merge-pending state explicitly.",
+        behavior: "The portfolio records the reviewed source SHA and resulting main merge SHA explicitly.",
         evidence: "SHA-bound proof",
       },
     ],
     evidence: [
-      "PR #1 exact reviewed SHA f3317da84d442b301660dee9ab617aa4fa9f5cc1.",
+      "PR #1 approved source SHA f3317da84d442b301660dee9ab617aa4fa9f5cc1; merged to main at 629049d5122938bc29354588158193f81d316cee.",
       "Java 21; mvn -B --no-transfer-progress verify; 10 tests; 0 failures; 0 errors; 0 skipped; CI green.",
       "QA review completed; Security review completed; history-aware reachable-text secret scan PASS with documented method limitation.",
-      "PR #1 is open / unmerged: VERIFIED PUBLIC PR — MERGE PENDING.",
+      "PR #1 is merged; post-merge main CI run 37502091053 completed successfully: VERIFIED PUBLIC MAIN — TESTS + CI.",
     ],
     outcome: "A real public repository now has inspectable tests, CI and bounded hardening evidence without rewriting its original history.",
     limitations: [
-      "PR #1 is still open and is not merged default-branch proof.",
+      "Merged recovery evidence does not establish production readiness or complete domain-policy coverage.",
       "The repository is not PIN_READY.",
       "JDA/Discord integration coverage is incomplete; handler/domain separation remains a later refactor.",
       "Race-duration validation, empty availability behavior and interval-overlap policy retain known gaps.",
@@ -194,8 +194,8 @@ export const caseStudies: readonly CaseStudy[] = [
       "The secret-scan PASS is bounded to the documented reachable-text/history method.",
     ],
     externalProof: {
-      label: "Review the verified PR",
-      href: "https://github.com/Parkts310120/bot_discord/pull/1",
+      label: "Inspect code & tests",
+      href: "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee",
     },
   },
   {
