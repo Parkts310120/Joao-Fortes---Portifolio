@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  evidenceStates,
   getWorkBySlug,
   primaryWork,
   routableWork,
@@ -60,6 +61,26 @@ describe("work registry", () => {
     expect(bot?.publicLabel).toContain("TESTS + CI");
     expect(bot?.publicLabel).not.toContain("PIN_READY");
     expect(bot?.primaryCta?.href).toBe("https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
+  });
+
+  it("promotes AI Runtime to a distinct verified bounded-runtime state on immutable reviewed main", () => {
+    const ai = getWorkBySlug("ai-workflow-runtime-lab");
+    expect(evidenceStates).toContain("VERIFIED_PUBLIC_MAIN_BOUNDED_RUNTIME_TESTS_CI");
+    expect(ai?.state).toBe("VERIFIED_PUBLIC_MAIN_BOUNDED_RUNTIME_TESTS_CI");
+    expect(ai?.publicLabel).toBe("VERIFIED PUBLIC MAIN — BOUNDED RUNTIME + TESTS + CI");
+    expect(ai?.problem).toBe("How do you make an AI workflow useful without letting provider output authorize itself or refine forever?");
+    expect(ai?.proofCue).toBe("47/47 tests + green post-merge main CI");
+    expect(ai?.primaryCta).toEqual({
+      label: "Inspect code & tests",
+      href: "https://github.com/Parkts310120/ai-workflow-runtime-lab/tree/11a64ef5967ea3f41b0b57bb4922840df819777f",
+      kind: "external",
+    });
+    expect(ai?.secondaryCta).toEqual({
+      label: "See current limitations",
+      href: "/work/ai-workflow-runtime-lab#limitations",
+      kind: "internal",
+    });
+    expect(JSON.stringify(ai)).not.toMatch(/PUBLIC PROOF PENDING|public lab is not ready/i);
   });
 
   it("keeps public-proof-pending work free of external source/demo CTAs", () => {
