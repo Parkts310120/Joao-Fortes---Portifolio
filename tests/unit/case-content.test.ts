@@ -33,6 +33,23 @@ describe("case-study registry", () => {
     expect(item?.limitations.join(" ")).toMatch(/not.*PIN_READY/i);
   });
 
+  it("binds AI Runtime to verified public main, exact CI proof and bounded clean-room limitations", () => {
+    const item = getCaseStudy("ai-workflow-runtime-lab");
+    expect(item?.typeLabel).toBe("VERIFIED PUBLIC MAIN — BOUNDED RUNTIME + TESTS + CI");
+    expect(item?.meta.evidence).toMatch(/47.*tests.*CI/i);
+    expect(item?.evidence.join(" ")).toContain("11a64ef5967ea3f41b0b57bb4922840df819777f");
+    expect(item?.evidence.join(" ")).toContain("37628229866");
+    expect(item?.evidence.join(" ")).toMatch(/47\s*\/\s*47/);
+    expect(item?.disclosure).toMatch(/clean-room/i);
+    expect(item?.limitations.join(" ")).toMatch(/no live LLM/i);
+    expect(item?.limitations.join(" ")).toMatch(/not.*security certification|security certification/i);
+    expect(item?.externalProof).toEqual({
+      label: "Inspect code & tests",
+      href: "https://github.com/Parkts310120/ai-workflow-runtime-lab/tree/11a64ef5967ea3f41b0b57bb4922840df819777f",
+    });
+    expect(JSON.stringify(item)).not.toMatch(/PUBLIC PROOF PENDING|repository does not exist yet|public proof.*not ready/i);
+  });
+
   it("never embeds private source account or localhost destinations", () => {
     const serialized = JSON.stringify(caseStudies);
     expect(serialized).not.toContain("f1parkts310120-png");
