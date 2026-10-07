@@ -38,6 +38,23 @@ test("bot case exposes merged main evidence without implying product readiness",
   await expect(page.getByRole("link", { name: "Inspect code & tests" })).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
 });
 
+test("AI Runtime case exposes verified main proof while preserving R1 limitations", async ({ page }) => {
+  await page.goto("/work/ai-workflow-runtime-lab");
+  await expect(page.getByText("VERIFIED PUBLIC MAIN — BOUNDED RUNTIME + TESTS + CI", { exact: true })).toBeVisible();
+  await expect(page.locator(".evidence-panel")).toContainText("11a64ef5967ea3f41b0b57bb4922840df819777f");
+  await expect(page.locator(".evidence-panel")).toContainText(/47\s*\/\s*47/);
+  await expect(page.locator(".evidence-panel")).toContainText("37628229866");
+  await expect(page.locator(".evidence-disclosure")).toContainText(/clean-room/i);
+  await expect(page.locator("#limitations")).toContainText(/no live LLM/i);
+  await expect(page.locator("#limitations")).toContainText(/security certification/i);
+  await expect(page.locator("main")).not.toContainText(/PUBLIC PROOF PENDING|repository does not exist yet|live AI agent|production ready/i);
+  await expect(page.getByRole("link", { name: "Inspect code & tests" })).toHaveAttribute(
+    "href",
+    "https://github.com/Parkts310120/ai-workflow-runtime-lab/tree/11a64ef5967ea3f41b0b57bb4922840df819777f",
+  );
+  await expect(page.locator("[data-architecture-map] [data-node]")).toHaveCount(8);
+});
+
 test("Warehouse Flow API has no generated deep route", async ({ page }) => {
   const response = await page.goto("/work/warehouse-flow-api");
   expect(response?.status()).toBe(404);
