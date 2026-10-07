@@ -19,10 +19,23 @@ test("home exposes the approved evidence hierarchy", async ({ page }) => {
 
   await expect(cards.nth(0).getByText("SANITIZED CASE", { exact: true })).toBeVisible();
   await expect(cards.nth(1).getByText("VERIFIED PUBLIC MAIN — TESTS + CI", { exact: true })).toBeVisible();
-  await expect(cards.nth(2).getByText("PUBLIC PROOF PENDING", { exact: true })).toBeVisible();
+  await expect(cards.nth(2).getByText("VERIFIED PUBLIC MAIN — BOUNDED RUNTIME + TESTS + CI", { exact: true })).toBeVisible();
 
-  const botPr = page.getByRole("link", { name: "Inspect code & tests" });
-  await expect(botPr).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
+  const botProof = cards.nth(1).getByRole("link", { name: "Inspect code & tests" });
+  await expect(botProof).toHaveAttribute("href", "https://github.com/Parkts310120/bot_discord/tree/629049d5122938bc29354588158193f81d316cee");
+
+  const aiCard = cards.nth(2);
+  await expect(aiCard).toContainText("How do you make an AI workflow useful without letting provider output authorize itself or refine forever?");
+  await expect(aiCard).toContainText("47/47 tests + green post-merge main CI");
+  await expect(aiCard).not.toContainText("PUBLIC PROOF PENDING");
+  await expect(aiCard.getByRole("link", { name: "Inspect code & tests" })).toHaveAttribute(
+    "href",
+    "https://github.com/Parkts310120/ai-workflow-runtime-lab/tree/11a64ef5967ea3f41b0b57bb4922840df819777f",
+  );
+  await expect(aiCard.getByRole("link", { name: "See current limitations" })).toHaveAttribute(
+    "href",
+    "/work/ai-workflow-runtime-lab#limitations",
+  );
 
   const warehouse = page.locator('[data-work-slug="warehouse-flow-api"]');
   await expect(warehouse).toContainText("IN BUILD");
@@ -66,4 +79,10 @@ test("home exposes professional contact and case detail destinations", async ({ 
     await link.click();
     await expect(page.locator(section)).toBeVisible();
   }
+
+  await page.goto("/");
+  const aiLimitations = page.locator('[data-work-slug="ai-workflow-runtime-lab"]').getByRole("link", { name: "See current limitations" });
+  await expect(aiLimitations).toHaveAttribute("href", "/work/ai-workflow-runtime-lab#limitations");
+  await aiLimitations.click();
+  await expect(page.locator("#limitations")).toBeVisible();
 });
